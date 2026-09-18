@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://sophia-z-lin.github.io/personal-website/sitemap.xml
