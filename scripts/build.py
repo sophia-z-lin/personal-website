@@ -6,19 +6,19 @@ R=Path(__file__).resolve().parents[1]
 D=json.loads((R/'content/site.json').read_text())
 E=json.loads((R/'content/essay.json').read_text())
 BASE=D['url'].rstrip('/')
-def page(path,title,body,active='home',tone='blue',desc=None):
+def page(path,title,body,active='home',desc=None):
     depth=len(Path(path).parts)-1;p=BASE+'/' if path=='404.html' else '../'*depth
-    nav=''.join(f'<a href="{p}{url}"'+(' aria-current="page"' if key==active else '')+f'>{label}</a>' for key,label,url in [('home','About','index.html'),('research','Research','research/'),('essays','Essays','essays/'),('piano','Piano','piano/'),('contact','Contact','contact/')])
+    nav=''.join(f'<a href="{p}{url}"'+(' aria-current="page"' if key==active else '')+f'>{label}</a>' for key,label,url in [('home','About','index.html'),('research','Research','research/'),('piano','Piano','piano/'),('essays','Essays','essays/'),('contact','Contact','contact/')])
     description=desc or D['description']
     html=f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{esc(title)} — Sophia Lin</title><meta name="description" content="{esc(description,quote=True)}"><meta name="theme-color" content="#050505">
 <link rel="canonical" href="{BASE}/{path.replace('index.html','')}"><meta property="og:title" content="{esc(title,quote=True)} — Sophia Lin"><meta property="og:description" content="{esc(description,quote=True)}"><meta property="og:type" content="website"><meta property="og:image" content="{BASE}/assets/portrait.png">
 <link rel="icon" href="{p}assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="{p}styles.css"><script src="{p}site.js" defer></script>
-</head><body class="tone-{tone}"><a class="skip" href="#main">Skip to content</a><div class="reading-progress" aria-hidden="true"></div>
-<header class="masthead"><a class="identity" href="{p}index.html" aria-label="Sophia Lin, home"><span class="registration" aria-hidden="true">+</span> Sophia Lin<span class="identity-note">Selected work</span></a><nav aria-label="Main navigation">{nav}<a href="{p}cv.pdf">CV ↗</a></nav></header>
+</head><body><a class="skip" href="#main">Skip to content</a><div class="reading-progress" aria-hidden="true"></div>
+<header class="masthead"><nav aria-label="Main navigation">{nav}<a class="nav-cv" href="{p}cv.pdf">CV ↗</a></nav></header>
 <main id="main">{body.replace('@@',p)}</main>
-<footer><div class="footer-top"><p>For good questions<br>and better conversations.</p><a class="email" href="mailto:{D['email']}">{D['email']} ↗</a></div><div class="footer-bottom"><span>Sophia Lin · {2026}</span><div><a href="https://github.com/sophia-z-lin">GitHub ↗</a><a href="https://www.linkedin.com/in/szlin-harvard">LinkedIn ↗</a><a href="{p}cv.pdf">CV ↗</a><a href="#main">Back to top ↑</a></div><span class="pigments" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span></div></footer></body></html>'''
+<footer><div class="footer-bottom"><span>Sophia Lin · {2026}</span><div><a href="https://www.linkedin.com/in/szlin-harvard">LinkedIn ↗</a><a href="{p}cv.pdf">CV ↗</a><a href="{p}contact/">Contact ↗</a></div><span class="pigments" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span></div></footer></body></html>'''
     out=R/path;out.parent.mkdir(parents=True,exist_ok=True);out.write_text(html)
 def heading(n,title,note='',href=None):
     return f'<div class="section-head"><span class="folio">{n}</span><h2>{title}</h2>'+ (f'<a href="{href}">{note} ↗</a>' if href else f'<span class="meta">{note}</span>')+'</div>'
@@ -39,14 +39,14 @@ home=intro
 page('index.html','Research, essays & performances',home)
 research=title('01','Research','Evaluation validity, uncertainty, and evidence that can be inspected.')+'<div class="section-introduction"><p>I work on the reliability of AI systems and the methods used to judge them. Across language-model evaluation and clinical prediction, I am interested in what a measurement captures, what it misses, and which conclusions it can support.</p><a class="text-link" href="@@cv.pdf">Curriculum vitae ↗</a></div><section class="archive-section">'+heading('01.1','Projects')+''.join(project(x) for x in D['projects'])+'</section><section class="archive-section" id="publications">'+heading('01.2','Selected publications')+publications()+'<p><a href="https://scholar.google.com/citations?user=iws3sEUAAAAJ&amp;hl=en">Google Scholar ↗</a></p></section>'
 page('research/index.html','Research',research,active='research')
-page('essays/index.html','Essays',title('02','Essays','On evidence, representation, and the ideas that survive their context.')+essayfeature(),active='essays',tone='orange')
+page('essays/index.html','Essays',title('02','Essays','On evidence, representation, and the ideas that survive their context.')+essayfeature(),active='essays')
 text=(R/'content/fenris.html').read_text().replace('../../assets/','@@assets/')
 heads=re.findall(r'<h2 id="(section-\d+)">(.*?)</h2>',text)
 toc=''.join(f'<a href="#{a}">{b}</a>' for a,b in heads)
 article=f'''<article class="longform"><header class="essay-opening"><a class="kicker" href="@@essays/">← Essays / 001</a><p class="meta">29 April 2026 · Sophia Lin</p><h1>Flop Incest Nazis</h1><p class="essay-deck">Why the visual representation of neo-Nazism in X-Men’s Fenris succeeds</p></header><details class="contents"><summary>In this essay</summary><nav aria-label="Essay contents">{toc}<a href="#appendices">Illustrated appendices</a><a href="#references">Works cited</a></nav></details><div class="essay-text">{text}</div></article>'''
-page('essays/fenris/index.html','Flop Incest Nazis',article,active='essays',tone='orange',desc='Why the visual representation of neo-Nazism in X-Men’s Fenris succeeds. An essay by Sophia Lin.')
+page('essays/fenris/index.html','Flop Incest Nazis',article,active='essays',desc="Why the visual representation of neo-Nazism in X-Men’s Fenris succeeds. An essay by Sophia Lin.")
 piano=title('03','Piano','Selected performances. Solo and with orchestra.')+'<p class="section-introduction">I studied with Dr. Marjorie Lee and performed chamber music through the National Symphony Orchestra Youth Fellowship. These recordings span solo recital and concerto performance. <a href="https://www.alfred.edu/mostarts/young-pianist-competition/2023-finalists.cfm">Biography ↗</a></p>'+''.join(performance(x,i+1) for i,x in enumerate(D['performances']))+'<p class="archive-link"><a href="https://www.youtube.com/@sophialin1802">Complete YouTube archive ↗</a></p>'
-page('piano/index.html','Piano',piano,active='piano',tone='saffron')
+page('piano/index.html','Piano',piano,active='piano')
 contact=title('04','Contact','Good questions are a good place to start.')+f'''<section class="contact-body"><p>For research, writing, music, or a conversation:</p><a class="contact-email" href="mailto:{D['email']}">{D['email']} ↗</a><div class="contact-row"><span>Research</span><a href="https://scholar.google.com/citations?user=iws3sEUAAAAJ&amp;hl=en">Google Scholar ↗</a></div><div class="contact-row"><span>Code</span><a href="https://github.com/sophia-z-lin">GitHub ↗</a></div><div class="contact-row"><span>Professional</span><a href="https://www.linkedin.com/in/szlin-harvard">LinkedIn ↗</a></div><div class="contact-row"><span>Performances</span><a href="https://www.youtube.com/@sophialin1802">YouTube ↗</a></div><div class="contact-row"><span>Background</span><a href="@@cv.pdf">Curriculum vitae (PDF) ↗</a></div></section>'''
 page('contact/index.html','Contact',contact,active='contact')
 page('404.html','Page not found',title('404','Not here','This page may have moved.')+f'<p><a href="{BASE}/">Return home →</a></p>')
