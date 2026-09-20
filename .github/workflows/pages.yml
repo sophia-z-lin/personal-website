@@ -23,9 +23,8 @@ jobs:
           python-version: '3.12'
       - name: Self-host Instrument Sans
         run: python scripts/fetch_fonts.py
-      - name: Build and check
+      - name: Check and stage
         run: |
-          python scripts/build.py
           python scripts/check.py
           python scripts/stage.py
       - uses: actions/configure-pages@v5
