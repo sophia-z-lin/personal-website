@@ -8,3 +8,24 @@
 @media(max-width:520px){.biography{display:flex;flex-direction:column}.portrait{width:42%;max-width:185px;margin:5px 0 0 auto}.portrait figcaption{text-align:right}.opening h1{font-size:66px}.opening .kicker{font-size:10px}.intro-line{font-size:22px}.inline-links{gap:18px;flex-wrap:wrap}.section-head{flex-wrap:wrap;row-gap:8px}.section-head>a{font-size:11px}.section-head h2{font-size:24px}.project{display:block}.project-context{display:flex;justify-content:space-between;gap:18px;margin-bottom:14px}.project-context span:first-child{max-width:75%}.publication{grid-template-columns:40px minmax(0,1fr);gap:16px}.essay-feature{display:block}.essay-date{margin-bottom:24px}.essay-date br{display:none}.essay-date br:after{content:' '}.essay-feature h3{font-size:36px}.piano-home{grid-template-columns:65px minmax(0,1fr);gap:18px}.large-number{font-size:67px}.piano-home h3{font-size:23px}.performance{display:block}.performance-number{display:flex;justify-content:space-between;margin-bottom:20px}.performance-number span{margin:0}.performance h2{font-size:26px}.video-links{font-size:10px}.page-opening h1{font-size:60px}.page-deck{font-size:22px}.essay-opening h1{font-size:54px}.essay-deck{font-size:23px}.essay-text{font-size:16px}.essay-text h2{font-size:25px}.footer-bottom>div{gap:16px;flex-wrap:wrap}.footer-top .email{font-size:11px}.appendices summary{font-size:17px}.appendices summary span{float:none;display:block;margin-top:10px}.contact-body{padding-bottom:40px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important;animation:none!important}}
 @media print{body{background:white;color:black;font-size:11pt}.masthead,footer,.reading-progress,.contents,.skip{display:none}main{width:100%;max-width:none}.longform{max-width:none}.essay-opening{padding-top:0}.essay-opening h1{font-size:36pt}.essay-text{font-size:11pt}.references p{color:black}.appendices{display:block}a{color:black}.portrait{max-width:120px}.archive-section{break-inside:avoid}}
+.poster-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;padding:10px 0 60px}
+.poster{position:relative;aspect-ratio:2/3;overflow:hidden;text-decoration:none;background:var(--poster-bg);isolation:isolate;cursor:pointer}
+.poster-line,.poster-fill{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center}
+.poster-line{filter:url(#edge-detect) sepia(1) saturate(2.5) brightness(.65) hue-rotate(5deg);mix-blend-mode:screen;transition:opacity .5s}
+.poster-fill{filter:grayscale(.15) contrast(1.4) brightness(.55) saturate(1.3);mix-blend-mode:screen;opacity:0;transition:opacity .5s}
+.poster:hover .poster-line{opacity:0}
+.poster:hover .poster-fill{opacity:1}
+.poster-text{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;padding:14px;z-index:1;transition:transform .5s cubic-bezier(.4,0,.2,1),opacity .4s .05s}
+.poster:hover .poster-text{transform:translateY(-40px);opacity:0}
+.poster-label{margin-top:auto}
+.poster-composer{display:block;font-family:'Bebas Neue',sans-serif;font-size:44px;line-height:.92;letter-spacing:.02em;color:#fff;overflow-wrap:break-word}
+.poster-composer em{font-family:'Instrument Sans',sans-serif;font-style:italic;font-size:.55em;letter-spacing:0;display:block;margin-top:2px;color:rgba(255,255,255,.7)}
+.poster-piece{display:block;font-family:'Bebas Neue',sans-serif;font-size:20px;line-height:1;color:rgba(255,255,255,.75);margin-top:3px;letter-spacing:.03em}
+.poster-detail{font-size:8px;line-height:1.6;color:rgba(0,0,0,.45);letter-spacing:.12em;text-transform:uppercase;word-spacing:.1em;text-align:right}
+.poster:nth-child(5n+1){--poster-bg:#8B2828}
+.poster:nth-child(5n+2){--poster-bg:#2E1A45}
+.poster:nth-child(5n+3){--poster-bg:#5C4490}
+.poster:nth-child(5n+4){--poster-bg:#450D12}
+.poster:nth-child(5n+5){--poster-bg:#6E3455}
+@media(max-width:760px){.poster-grid{grid-template-columns:repeat(3,1fr);gap:8px}.poster-composer{font-size:30px}.poster-piece{font-size:14px}.poster-text{padding:10px}.poster-detail{font-size:7px}}
+@media(max-width:520px){.poster-grid{grid-template-columns:repeat(2,1fr);gap:6px}.poster-composer{font-size:26px}.poster-piece{font-size:12px}.poster-text{padding:8px}}
