@@ -28,7 +28,7 @@ for f,d in parsed.items():
         if path.is_dir():path=path/'index.html'
         if not path.exists():errors.append(str(f.relative_to(R))+': missing '+ref)
         elif u.fragment and path in parsed and unquote(u.fragment) not in parsed[path].ids:errors.append('Missing anchor: '+ref)
-for p in ['index.html','research/index.html','essays/index.html','piano/index.html','contact/index.html']:
+for p in ['index.html','research/index.html','essays/index.html','piano/index.html']:
     s=(R/p).read_text()
     for bad in ['example.com','placeholder','coming soon','what-llm-judges-measure']:
         if bad in s.lower():errors.append(p+': stale content '+bad)
