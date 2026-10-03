@@ -29,3 +29,4 @@
 .poster:nth-child(5n+5){--poster-bg:#6E3455}
 @media(max-width:760px){.poster-grid{grid-template-columns:repeat(3,1fr);gap:8px}.poster-composer{font-size:30px}.poster-piece{font-size:14px}.poster-text{padding:10px}.poster-detail{font-size:7px}}
 @media(max-width:520px){.poster-grid{grid-template-columns:repeat(2,1fr);gap:6px}.poster-composer{font-size:26px}.poster-piece{font-size:12px}.poster-text{padding:8px}}
+.essay-locked{filter:blur(5px);opacity:.4;pointer-events:none;user-select:none;transition:filter .3s,opacity .3s}.essay-gate-notice{font-size:14px;color:var(--muted);border:1px solid var(--rule);padding:18px 22px;margin:10px 0 30px;text-align:center}
